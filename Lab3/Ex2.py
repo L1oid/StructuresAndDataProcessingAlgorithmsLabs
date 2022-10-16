@@ -109,7 +109,7 @@ class UnorderedList:
             self.append(item)
             return
         current = self.head
-        for _ in range(pos-1):
+        for i in range(pos-1):
             current = current.getNext()
         temp = Node(item)
         temp.setNext(current.getNext())
@@ -135,35 +135,24 @@ class UnorderedList:
             return
         current = self.head
         copy = UnorderedList()
-        for _ in range(start):
+        for i in range(start):
             current = current.getNext()
-        for _ in range(start, stop):
+        for i in range(start, stop):
             copy.append(current.getData())
             current = current.getNext()
         if copy.size() == 1:
             return copy.head.data
         return copy
 
+def move_to_front(n):
+    mylist = UnorderedList()
+    for i in range(n):
+        str = input()
+        if (mylist.search(str)):
+            mylist.remove(str)
+            mylist.add(str)
+        else:
+            mylist.add(str)
+    print(mylist)
 
-mylist = UnorderedList()
-
-mylist.append(43)
-mylist.append(55)
-mylist.append(101)
-mylist.append(155)
-mylist.append(22)
-print(mylist)
-mylist.insert(1, 77)
-print(mylist)
-mylist.pop()
-print(mylist)
-mylist.pop(2)
-print(mylist)
-
-print(mylist.index(55))
-print(mylist.index(43))
-print(mylist.index(101))
-print(mylist.index(77))
-
-print(mylist.slice(2, 4))
-
+move_to_front(5)

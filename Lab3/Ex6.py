@@ -109,7 +109,7 @@ class UnorderedList:
             self.append(item)
             return
         current = self.head
-        for _ in range(pos-1):
+        for _ in range(pos - 1):
             current = current.getNext()
         temp = Node(item)
         temp.setNext(current.getNext())
@@ -144,26 +144,62 @@ class UnorderedList:
             return copy.head.data
         return copy
 
+    def __getitem__(self, item):
+        if isinstance(item, slice):
+            return self.slice(item.start, item.stop)
 
-mylist = UnorderedList()
 
-mylist.append(43)
-mylist.append(55)
-mylist.append(101)
-mylist.append(155)
-mylist.append(22)
-print(mylist)
-mylist.insert(1, 77)
-print(mylist)
-mylist.pop()
-print(mylist)
-mylist.pop(2)
-print(mylist)
+class Stack:
+    def __init__(self):
+        self.items = UnorderedList()
 
-print(mylist.index(55))
-print(mylist.index(43))
-print(mylist.index(101))
-print(mylist.index(77))
+    def isEmpty(self):
+        return self.items.isEmpty()
 
-print(mylist.slice(2, 4))
+    def push(self, item):
+        self.items.append(item)
 
+    def pop(self):
+        return self.items.pop()
+
+    def peek(self):
+        return self.items[self.items.size() - 1:self.items.size()]
+
+    def size(self):
+        return self.items.size()
+
+    def __str__(self):
+        current = self.items.head
+        output = "["
+        while current != None:
+            output += str(current.getData()) + ", "
+            current = current.getNext()
+        output = output[:-2] + "]"
+        return output
+
+
+def html(path):
+    stack = Stack()
+    with open(path) as file:
+        for line in file:
+            line = line.strip()
+            while line != "":
+                start1 = line.find("</")
+                end = line.find(">", start1)
+                if start1 > -1 and end > -1:
+                    stack.pop()
+                    line = line.replace(line[start1:end + 1], "")
+                start2 = line.find("<")
+                end = line.find(">", start2)
+                if start2 > -1 and end > -1:
+                    stack.push(line[start2 + 1:end])
+                    line = line.replace(line[start2:end + 1], "")
+                if start1 < 0 and start2 < 0:
+                    break
+    if stack.isEmpty():
+        return True
+    else:
+        return False
+
+
+print(html("index.html"))
