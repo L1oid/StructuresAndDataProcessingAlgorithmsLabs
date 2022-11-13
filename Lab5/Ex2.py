@@ -1,5 +1,3 @@
-from collections import deque
-
 class Vertex:
 
     def __init__(self, key):
@@ -56,34 +54,28 @@ class Graph:
         return iter(self.vertList.values())
 
 
-def person_is_seller(name):
-    return name.getId()[0] == 'a'
+def reverse_graph(graph: Graph):
+    r_graph = Graph()
+    for vert in graph:
+        for neighbor in vert.getConnections():
+            r_graph.addEdge(neighbor.getId(), vert.getId())
+    return r_graph
 
 
 graph = Graph()
-graph.addEdge("you", "alice")
-graph.addEdge("you", "bob")
-graph.addEdge("you", "claire")
-graph.addEdge("bob", "anuj")
-graph.addEdge("bob", "peggy")
-graph.addEdge("claire", "thom")
-graph.addEdge("claire", "jonny")
+graph.addEdge(0, 1)
+graph.addEdge(0, 2)
+graph.addEdge(2, 1)
+graph.addEdge(1, 3)
 
+print("Given graph:")
+for vert in graph:
+    for neighbor in vert.getConnections():
+        print(vert.getId(), neighbor.getId())
 
-def search(name):
-    search_queue = deque()
-    search_queue += graph.getVertex(name).getConnections()
-    searched = set()
-    while search_queue:
-        person = search_queue.popleft()
-        if person not in searched:
-            if person_is_seller(person):
-                print(person.getId() + " is a mango seller!")
-                return True
-            else:
-                search_queue += graph[person]
-                searched.add(person)
-    return False
+r_graph = reverse_graph(graph)
 
-
-search("you")
+print("Inverted graph:")
+for vert in r_graph:
+    for neighbor in vert.getConnections():
+        print(vert.getId(), neighbor.getId())
