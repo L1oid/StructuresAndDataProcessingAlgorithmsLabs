@@ -152,25 +152,7 @@ END_X = g.endNode.x
 END_Y = g.endNode.y
 a = AstarQueue(g.startNode, g.endNode)
 
-colourful_path = False
-single_color = (255, 0, 0)
-colour_range = (0, 256)
-max_total_intensity = 300
-min_total_intensity = 200
-
-r, g, b = random.randrange(*colour_range), random.randrange(*colour_range), random.randrange(*colour_range)
-r2, g2, b2 = random.randrange(*colour_range), random.randrange(*colour_range), random.randrange(*colour_range)
-if min_total_intensity != None and max_total_intensity != None:
-    while r2 + g2 + b2 < min_total_intensity or r2 + g2 + b2 > max_total_intensity:
-        r2, g2, b2 = random.randrange(*colour_range), random.randrange(*colour_range), random.randrange(*colour_range)
-elif min_total_intensity == None and max_total_intensity != None:
-    while r2 + g2 + b2 > max_total_intensity:
-        r2, g2, b2 = random.randrange(*colour_range), random.randrange(*colour_range), random.randrange(*colour_range)
-elif min_total_intensity != None and max_total_intensity == None:
-    while r2 + g2 + b2 < min_total_intensity:
-        r2, g2, b2 = random.randrange(*colour_range), random.randrange(*colour_range), random.randrange(*colour_range)
-if not colourful_path:
-    r, g, b = single_color
+r, g, b = (255, 0, 0)
 
 img = img.convert(mode="RGB")
 for i in range(len(a.finished_path) - 1):
@@ -187,52 +169,6 @@ for i in range(len(a.finished_path) - 1):
         ystep = -1
     while abs(start_x - end_x) > 0 or abs(start_y - end_y) > 0:
         img.putpixel((start_x, start_y), (r, g, b))
-        if colourful_path:
-            if r < r2:
-                r += 1
-            elif r > r2:
-                r -= 1
-            else:
-                r2 = random.randrange(*colour_range)
-                if min_total_intensity != None and max_total_intensity != None:
-                    while r2 + g2 + b2 < min_total_intensity or r2 + g2 + b2 > max_total_intensity:
-                        r2 = random.randrange(*colour_range)
-                elif min_total_intensity == None and max_total_intensity != None:
-                    while r2 + g2 + b2 > max_total_intensity:
-                        r2 = random.randrange(*colour_range)
-                elif min_total_intensity != None and max_total_intensity == None:
-                    while r2 + g2 + b2 < min_total_intensity:
-                        r2 = random.randrange(*colour_range)
-            if g < g2:
-                g += 1
-            elif g > g2:
-                g -= 1
-            else:
-                g2 = random.randrange(*colour_range)
-                if min_total_intensity != None and max_total_intensity != None:
-                    while r2 + g2 + b2 < min_total_intensity or r2 + g2 + b2 > max_total_intensity:
-                        g2 = random.randrange(*colour_range)
-                elif min_total_intensity == None and max_total_intensity != None:
-                    while r2 + g2 + b2 > max_total_intensity:
-                        g2 = random.randrange(*colour_range)
-                elif min_total_intensity != None and max_total_intensity == None:
-                    while r2 + g2 + b2 < min_total_intensity:
-                        g2 = random.randrange(*colour_range)
-            if b < b2:
-                b += 1
-            elif b > b2:
-                b -= 1
-            else:
-                b2 = random.randrange(*colour_range)
-                if min_total_intensity != None and max_total_intensity != None:
-                    while r2 + g2 + b2 < min_total_intensity or r2 + g2 + b2 > max_total_intensity:
-                        b2 = random.randrange(*colour_range)
-                elif min_total_intensity == None and max_total_intensity != None:
-                    while r2 + g2 + b2 > max_total_intensity:
-                        b2 = random.randrange(*colour_range)
-                elif min_total_intensity != None and max_total_intensity == None:
-                    while r2 + g2 + b2 < min_total_intensity:
-                        b2 = random.randrange(*colour_range)
         start_x += xstep
         start_y += ystep
 
