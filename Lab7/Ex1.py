@@ -127,5 +127,5 @@ def printexpr(parseTree):
 
 
 pt = buildParseTree("( ( ! ( 0 | 0 ) ) & ( 1 | 0 ) )")
-print(evaluate(pt))
-print('exps: ' + printexpr(pt))
+print("evaluate:", evaluate(pt))
+print('printexpr: ' + printexpr(pt))
